@@ -297,3 +297,17 @@ writeRaster(slf_2017_rast2, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/
 writeRaster(slf_2018_rast2, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/slf_data_redone_with_all_data_sources/slf2018_infested.tif", overwrite = TRUE)
 writeRaster(slf_2019_rast2, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/slf_data_redone_with_all_data_sources/slf2019_infested.tif", overwrite = TRUE)
 
+## Setup all USA
+slf_2019 <- raster("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/slf_data_redone_with_all_data_sources/slf2019_infested.tif")
+tohusa <- raster("H:/Shared drives/Data/Raster/USA/tohUSA.tif")
+tohusa <- projectRaster(tohusa, crs = crs(slf_2019))_
+slf_2019_res <- resample(slf_2019, tohusa)
+
+total_plants <- tohusa
+total_plants[] <- 100
+plot(total_plants)
+
+writeRaster(slf_2019_res, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/slf_infested.tif", overwrite = TRUE)
+writeRaster(tohusa, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/host.tif", overwrite = TRUE)
+writeRaster(total_plants, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/total_plants.tif", overwrite = TRUE)
+
