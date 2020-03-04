@@ -300,7 +300,7 @@ writeRaster(slf_2019_rast2, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/
 ## Setup all USA
 slf_2019 <- raster("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/slf_data_redone_with_all_data_sources/slf2019_infested.tif")
 tohusa <- raster("H:/Shared drives/Data/Raster/USA/tohUSA.tif")
-tohusa <- projectRaster(tohusa, crs = crs(slf_2019))_
+tohusa <- projectRaster(tohusa, crs = crs(slf_2019))
 slf_2019_res <- resample(slf_2019, tohusa)
 
 total_plants <- tohusa
@@ -311,3 +311,52 @@ writeRaster(slf_2019_res, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/sp
 writeRaster(tohusa, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/host.tif", overwrite = TRUE)
 writeRaster(total_plants, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/total_plants.tif", overwrite = TRUE)
 
+temp2014 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2014.tif")
+temp2015 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2015.tif")
+temp2016 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2016.tif")
+temp2017 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2017.tif")
+temp2018 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2018.tif")
+temp2019 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_slf_usa_2019.tif")
+
+temp2014 <- projectRaster(temp2014, crs = crs(slf_2019))
+temp2015 <- projectRaster(temp2015, crs = crs(slf_2019))
+temp2016 <- projectRaster(temp2016, crs = crs(slf_2019))
+temp2017 <- projectRaster(temp2017, crs = crs(slf_2019))
+temp2018 <- projectRaster(temp2018, crs = crs(slf_2019))
+temp2019 <- projectRaster(temp2019, crs = crs(slf_2019))
+
+temp2014 <- resample(temp2014, tohusa)
+temp2015 <- resample(temp2015, tohusa)
+temp2016 <- resample(temp2016, tohusa)
+temp2017 <- resample(temp2017, tohusa)
+temp2018 <- resample(temp2018, tohusa)
+temp2019 <- resample(temp2019, tohusa)
+
+
+
+crittemp2014 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2014.tif")
+crittemp2015 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2015.tif")
+crittemp2016 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2016.tif")
+crittemp2017 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2017.tif")
+crittemp2018 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2018.tif")
+crittemp2019 <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temperature_crit_slf_usa_2019.tif")
+
+crittemp2014 <- projectRaster(crittemp2014, crs = crs(slf_2019))
+crittemp2015 <- projectRaster(crittemp2015, crs = crs(slf_2019))
+crittemp2016 <- projectRaster(crittemp2016, crs = crs(slf_2019))
+crittemp2017 <- projectRaster(crittemp2017, crs = crs(slf_2019))
+crittemp2018 <- projectRaster(crittemp2018, crs = crs(slf_2019))
+crittemp2019 <- projectRaster(crittemp2019, crs = crs(slf_2019))
+
+crittemp2014 <- resample(crittemp2014, tohusa)
+crittemp2015 <- resample(crittemp2015, tohusa)
+crittemp2016 <- resample(crittemp2016, tohusa)
+crittemp2017 <- resample(crittemp2017, tohusa)
+crittemp2018 <- resample(crittemp2018, tohusa)
+crittemp2019 <- resample(crittemp2019, tohusa)
+
+crit_temp_usa <-stack(crittemp2015, crittemp2016, crittemp2017, crittemp2018, crittemp2019, crittemp2016, crittemp2017, crittemp2018, crittemp2019, crittemp2014, crittemp2017, crittemp2018, crittemp2019, crittemp2016, crittemp2017, crittemp2015, crittemp2016, crittemp2017, crittemp2018, crittemp2019, crittemp2016, crittemp2017, crittemp2019, crittemp2016, crittemp2017, crittemp2018, crittemp2016, crittemp2017, crittemp2018, crittemp2016, crittemp2017)
+temp_coeff_usa <-stack(temp2015, temp2016, temp2017, temp2018, temp2019, temp2016, temp2017, temp2018, temp2019, temp2014, temp2017, temp2018, temp2019, temp2016, temp2017, temp2015, temp2016, temp2017, temp2018, temp2019, temp2016, temp2017, temp2019, temp2016, temp2017, temp2018, temp2016, temp2017, temp2018, temp2016, temp2017)
+
+writeRaster(crit_temp_usa, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/crit_temp_usa.tif")
+writeRaster(temp_coeff_usa, "H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/temp_coeff_usa.tif")
