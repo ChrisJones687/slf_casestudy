@@ -18,7 +18,7 @@ season_month_start <- 5
 season_month_end <- 11
 time_step <- "month"
 start_date <- '2019-01-01'
-end_date <- '2050-12-31'
+end_date <- '2020-12-31'
 lethal_temperature <- -35
 lethal_temperature_month <- 1
 random_seed <- 42
@@ -45,23 +45,46 @@ random_seed = NULL
 output_frequency = "year"
 movements_file <- ""
 use_movements <- FALSE
+num_iterations <- 30
+number_of_cores <- 30
 
-data <- PoPS::pops(infected_file, host_file, total_plants_file, 
-                   temp, temperature_coefficient_file, 
-                   precip, precipitation_coefficient_file, 
-                   time_step, reproductive_rate,
-                   season_month_start, season_month_end, 
-                   start_date, end_date, 
-                   use_lethal_temperature, temperature_file,
-                   lethal_temperature, lethal_temperature_month,
-                   mortality_on, mortality_rate, mortality_time_lag, 
-                   management, treatment_dates, treatments_file,
-                   treatment_method,
-                   percent_natural_dispersal,
-                   natural_kernel_type, anthropogenic_kernel_type,
-                   natural_distance_scale, anthropogenic_distance_scale,
-                   natural_dir, natural_kappa, 
-                   anthropogenic_dir, anthropogenic_kappa,
-                   pesticide_duration, pesticide_efficacy,
-                   random_seed, output_frequency,
-                   movements_file, use_movements)
+# data <- PoPS::pops(infected_file, host_file, total_plants_file, 
+#                    temp, temperature_coefficient_file, 
+#                    precip, precipitation_coefficient_file, 
+#                    time_step, reproductive_rate,
+#                    season_month_start, season_month_end, 
+#                    start_date, end_date, 
+#                    use_lethal_temperature, temperature_file,
+#                    lethal_temperature, lethal_temperature_month,
+#                    mortality_on, mortality_rate, mortality_time_lag, 
+#                    management, treatment_dates, treatments_file,
+#                    treatment_method,
+#                    percent_natural_dispersal,
+#                    natural_kernel_type, anthropogenic_kernel_type,
+#                    natural_distance_scale, anthropogenic_distance_scale,
+#                    natural_dir, natural_kappa, 
+#                    anthropogenic_dir, anthropogenic_kappa,
+#                    pesticide_duration, pesticide_efficacy,
+#                    random_seed, output_frequency,
+#                    movements_file, use_movements)
+
+data <- PoPS::pops_multirun(infected_file, host_file, total_plants_file, 
+                            temp, temperature_coefficient_file, 
+                            precip, precipitation_coefficient_file, 
+                            time_step, reproductive_rate,
+                            season_month_start, season_month_end, 
+                            start_date, end_date, 
+                            use_lethal_temperature, temperature_file,
+                            lethal_temperature, lethal_temperature_month,
+                            mortality_on, mortality_rate, mortality_time_lag, 
+                            management, treatment_dates, treatments_file,
+                            treatment_method,
+                            percent_natural_dispersal,
+                            natural_kernel_type, anthropogenic_kernel_type,
+                            natural_distance_scale, anthropogenic_distance_scale,
+                            natural_dir, natural_kappa, 
+                            anthropogenic_dir, anthropogenic_kappa,
+                            num_iterations, number_of_cores,
+                            pesticide_duration, pesticide_efficacy,
+                            random_seed = NULL, output_frequency,
+                            movements_file, use_movements)
