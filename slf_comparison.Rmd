@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(raster)
+library(sp)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+slf_usa <- stack("H:/Shared drives/APHIS  Projects/PoPS/Case Studies/spotted_latternfly/whole_usa/5km/whole_usa_probability.tif")
+slf_maxent <- raster("C:/Users/cmjone25/Desktop/GIS_Files/slf_albers/w001001.adf")
+slf_30year <- slf_usa[[31]]
+slf_maxent <- projectRaster(slf_maxent, crs = crs(slf_30year))
+slf_maxent_re <- resample(slf_maxent, slf_30year)
+# slf_maxent_re <- projectRaster(slf_maxent_re, crs = crs(slf_30year))
+slf_30year_binary <- slf_30year
+slf_30year_binary[slf_30year_binary > 0] <- 1
+slf_maxent_re_binary <- slf_maxent_re
+slf_maxent_re_binary[slf_maxent_re_binary > 0.08359] <- 2
+slf_maxent_re_binary
+slf_comp <- slf_30year_binary + slf_maxent_re_binary
+
+plot(slf_usa[[31]])
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+
+```
